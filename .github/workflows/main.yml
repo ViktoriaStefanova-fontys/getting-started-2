@@ -23,9 +23,10 @@ jobs:
 
     - name: 'Build and push Docker image'
       run: |
-        IMAGE_NAME=${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ secrets.REPOSITORY_NAME }}:${{ github.run_number }}
-        docker build -t $IMAGE_NAME .
-        docker push $IMAGE_NAME
+        IMAGE_NAME="${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ secrets.REPOSITORY_NAME }}:${{ github.run_number }}"
+        echo "Building image: $IMAGE_NAME"
+        docker build -t "$IMAGE_NAME" .
+        docker push "$IMAGE_NAME"
 
     - name: 'Deploy to ACI'
       uses: azure/aci-deploy@v1
