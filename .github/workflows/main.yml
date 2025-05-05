@@ -23,9 +23,8 @@ jobs:
 
     - name: 'Build and push Docker image'
       run: |
-        IMAGE_NAME=${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ secrets.REPOSITORY_NAME }}:${{ github.run_number }}
-        docker build -t $IMAGE_NAME .
-        docker push $IMAGE_NAME
+        docker build . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ secrets.REPOSITORY_NAME }}:${{ github.run_number }}
+        docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ secrets.REPOSITORY_NAME }}:${{ github.run_number }}
 
     - name: 'Deploy to ACI'
       uses: azure/aci-deploy@v1
@@ -36,6 +35,6 @@ jobs:
         registry-login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
         registry-username: ${{ secrets.REGISTRY_USERNAME }}
         registry-password: ${{ secrets.REGISTRY_PASSWORD }}
-        name: getting-started-github-2
+        name: getting-started-github
         location: 'northeurope'
         ports: '3000'
