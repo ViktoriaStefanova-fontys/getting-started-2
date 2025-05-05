@@ -23,6 +23,10 @@ jobs:
 
     - name: 'Build and push Docker image'
       run: |
+        echo "Login server: ${{ secrets.REGISTRY_LOGIN_SERVER }}"
+        echo "Repository name: ${{ secrets.REPOSITORY_NAME }}"
+        echo "Run number: ${{ github.run_number }}"
+
         IMAGE_NAME="${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ secrets.REPOSITORY_NAME }}:${{ github.run_number }}"
         echo "Building image: $IMAGE_NAME"
         docker build -t "$IMAGE_NAME" .
