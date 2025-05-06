@@ -3,7 +3,9 @@ const addItem = require('../../src/routes/addItem');
 const ITEM = { id: 12345 };
 const uuid = require('uuid/v4');
 
-jest.mock('uuid/v4', () => jest.fn());
+jest.mock('uuid', () => ({
+    v4: jest.fn(),
+}));
 
 jest.mock('../../src/persistence', () => ({
     removeItem: jest.fn(),
