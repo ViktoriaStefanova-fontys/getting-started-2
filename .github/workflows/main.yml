@@ -47,4 +47,4 @@ jobs:
         azure-file-volume-share-name: vdvbshare
         azure-file-volume-account-name: vdvb1
         azure-file-volume-account-key: ${{ secrets.STORAGE_ACCOUNT_KEY }}
-        azure-file-volume-mount-path: /mnt/files
+        azure-file-volume-mount-path: /etc/todos
