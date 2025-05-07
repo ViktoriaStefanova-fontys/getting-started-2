@@ -1,0 +1,31 @@
+apiVersion: 2021-03-01
+location: northeurope
+name: vdvbnodejsapp2025
+type: Microsoft.ContainerInstance/containerGroups
+tags: {}
+
+identity:
+  type: UserAssigned
+  userAssignedIdentities:
+    /subscriptions/853744d5-f9d6-49df-995c-56e7b0a82aa3/resourceGroups/containerization_assignment/providers/Microsoft.ManagedIdentity/userAssignedIdentities/vdvb-aci-identity: {}
+
+properties:
+  osType: Linux
+  containers:
+    - name: app
+      properties:
+        image: vdvb1.azurecr.io/your-image-name:latest  # Replace this with the actual image name:tag from GitHub Actions (e.g. vdvb1.azurecr.io/myapp:12)
+        resources:
+          requests:
+            cpu: 1.0
+            memoryInGb: 1.5
+        volumeMounts:
+          - name: azurefileshare
+            mountPath: /mnt/files
+
+  volumes:
+    - name: azurefileshare
+      azureFile:
+        shareName: vdvbshare
+        storageAccountName: vdvb1
+        storageAccountKey: "@Microsoft.KeyVault(SecretUri=https://keyvaultvdvb.vault.azure.net/secrets/storageacckey/789ae36a56364f0ba2b46e313fb86be6)"
